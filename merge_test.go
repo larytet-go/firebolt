@@ -1,6 +1,6 @@
 package merge
 
-import ( 
+import (
 	"testing"
 )
 
@@ -58,17 +58,18 @@ func compareArrays(A, B []int) bool {
 	if len(A) != len(B) {
 		return false
 	}
-	for i := range(A) {
+	for i := range A {
 		if A[i] != B[i] {
 			return false
 		}
 	}
 	return true
 }
+
 func TestMerge(t *testing.T) {
 	res := mergeSortedArrays([]int{1, 2, 3}, []int{1, 3, 4})
 
-	if !compareArrays(res, []int{1, 1, 2, 3, 3, 4})  {
+	if !compareArrays(res, []int{1, 1, 2, 3, 3, 4}) {
 		t.Errorf("got %v", res)
 	}
 }
