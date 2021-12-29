@@ -37,7 +37,7 @@ func mergeSortedArrays(A []int, B []int) (C []int) {
 		}
 
 		if len(A) < aIdx {
-			copy_the_rest(B, C, aIdx)
+			copy_the_rest(B, C, bIdx)
 			return
 		}
 
