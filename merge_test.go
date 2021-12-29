@@ -5,7 +5,7 @@ import (
 )
 
 /*
-Input: Two arrays int[] sorted
+Input: Two arrays []int sorted
 Outuput: merge of two input arrays sorted
 */
 func mergeSortedArrays(A []int, B []int) (C []int) {
