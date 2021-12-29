@@ -7,7 +7,7 @@ import (
 /*
 Input: Two arrays []int sorted
 Outuput: merge of two input arrays sorted
-Complexity O(n+m), memory requirements O(2*(n+m))
+Complexity O(n+m), memory requirements O(n+m)
 */
 func mergeSortedArrays(A []int, B []int) (C []int) {
 	C = make([]int, len(A)+len(B))
