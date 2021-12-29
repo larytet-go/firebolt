@@ -4,51 +4,38 @@ import (
 	"testing"
 )
 
-func idxExists(A, B []int, aIdx, bIdx int) bool {
-	return (len(A) > aIdx) && (len(B) > bIdx)
-}
-
-func copy_the_rest(src []int, srcIdx int, dst []int, dstIdx int) {
-	if srcIdx >= len(src) {
-		return
-	}
-	copy(dst[dstIdx:], src[srcIdx:])
-}
-
 /*
-Inpit Two arrays [int] sorted
-Outuput merge of two input arrays sorted
+Input: Two arrays int[] sorted
+Outuput: merge of two input arrays sorted
 */
 func mergeSortedArrays(A []int, B []int) (C []int) {
 	C = make([]int, len(A)+len(B))
+	tempC := C[:]
 
-	var aIdx, bIdx, cIdx int
 	for {
-		if idxExists(A, B, aIdx, bIdx) && (A[aIdx] > B[bIdx]) {
-			C[cIdx] = B[bIdx]
-			bIdx += 1
-			cIdx += 1
+		if len(B) > 0 && A[0] > B[0] {
+			tempC[0] = B[0]
+			B = B[1:]
+			tempC = tempC[1:]
 		}
 
-		if idxExists(A, B, aIdx, bIdx) && (A[aIdx] <= B[bIdx]) {
-			C[cIdx] = A[aIdx]
-			aIdx += 1
-			cIdx += 1
+		if len(A) > 0 && A[0] <= B[0] {
+			tempC[0] = A[0]
+			A = A[1:]
+			tempC = tempC[1:]
 		}
 
-		if len(B) <= bIdx {
-			copy_the_rest(A, aIdx, C, cIdx)
-			aIdx = len(A)
+		if len(A) == 0 && len(B) > 0 {
+			copy(tempC, B)
 			return
 		}
 
-		if len(A) <= aIdx {
-			copy_the_rest(B, bIdx, C, cIdx)
-			bIdx = len(B)
+		if len(B) == 0 && len(A) > 0 {
+			copy(tempC, A)
 			return
 		}
 
-		if len(A) <= aIdx && len(B) <= bIdx {
+		if len(A) == 0 && len(B) == 0 {
 			return
 		}
 	}
@@ -67,9 +54,10 @@ func compareArrays(A, B []int) bool {
 }
 
 func TestMerge(t *testing.T) {
-	res := mergeSortedArrays([]int{1, 2, 3}, []int{1, 3, 4})
+	res := mergeSortedArrays([]int{1, 2, 3}, []int{1, 3, 4, 4, 5})
 
-	if !compareArrays(res, []int{1, 1, 2, 3, 3, 4}) {
-		t.Errorf("got %v", res)
+	expected := []int{1, 1, 2, 3, 3, 4, 4, 5}
+	if !compareArrays(res, expected) {
+		t.Errorf("got/expected:\n%v\n%v", res, expected)
 	}
 }
